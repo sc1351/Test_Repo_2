@@ -1,0 +1,97 @@
+table Query1
+	lineageTag: 4d180dc2-fc10-4e5a-a2e3-488ac9b182b1
+
+	column DATE_TIME
+		dataType: string
+		lineageTag: 53fc3a3f-c34f-48e0-a3fd-c4d5878baf46
+		summarizeBy: none
+		sourceColumn: DATE_TIME
+
+		annotation SummarizationSetBy = Automatic
+
+	column LOCAL_DATE_TIME
+		dataType: string
+		lineageTag: 25bdd509-fb66-4263-a0ce-4724e46f571f
+		summarizeBy: none
+		sourceColumn: LOCAL_DATE_TIME
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 61799a9f-be84-4c82-ae2e-79c1b7b81d01
+		summarizeBy: none
+		sourceColumn: DATE
+
+		variation Variation
+			isDefault
+			relationship: fbc6360c-48da-4843-a0f1-77b5ed2e31b6
+			defaultHierarchy: LocalDateTable_ca01764a-3b92-4ea9-9447-d79b91f454ee.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DAY
+		dataType: string
+		lineageTag: 1a4b922b-d61f-40a1-8a28-2f82feca60ac
+		summarizeBy: none
+		sourceColumn: DAY
+
+		annotation SummarizationSetBy = Automatic
+
+	column REGION
+		dataType: string
+		lineageTag: 8deb59f2-e7f8-4001-9b51-eebed414e100
+		summarizeBy: none
+		sourceColumn: REGION
+
+		annotation SummarizationSetBy = Automatic
+
+	column AMF_SET
+		dataType: string
+		lineageTag: b939e657-8180-4d55-8979-5bd48c8edf8b
+		summarizeBy: none
+		sourceColumn: AMF_SET
+
+		annotation SummarizationSetBy = Automatic
+
+	column AMF
+		dataType: string
+		lineageTag: bae2a8b4-b38a-4d0b-a40b-ed9134261c1a
+		summarizeBy: none
+		sourceColumn: AMF
+
+		annotation SummarizationSetBy = Automatic
+
+	column TECHNOLOGY
+		dataType: string
+		lineageTag: a3b54e48-6e40-4160-b59b-3372ec0746fd
+		summarizeBy: none
+		sourceColumn: TECHNOLOGY
+
+		annotation SummarizationSetBy = Automatic
+
+	column SAU
+		dataType: double
+		lineageTag: 1fb3265a-d958-4b32-9e81-1fa33b7db89f
+		summarizeBy: sum
+		sourceColumn: SAU
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Query1 = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(Snowflake.Databases("inpcloud.east-us-2.privatelink.snowflakecomputing.com","COMMON",[Implementation="1.0"]){[Name="NSAS_MOBILITY_PROD"]}[Data], "WITH#(lf)   pool_map#(lf)   AS#(lf)      (SELECT column1::STRING AS amf,#(lf)              column2::STRING AS pool,#(lf)              SPLIT_PART (column2::STRING, '_', 2) AS region,#(lf)              CASE SPLIT_PART (column2::STRING, '_', 2)#(lf)                 WHEN 'West' THEN 'America/Los_Angeles'#(lf)                 WHEN 'Central' THEN 'America/Chicago'#(lf)                 WHEN 'East' THEN 'America/New_York'#(lf)                 ELSE 'UTC'#(lf)              END AS region_tz#(lf)       FROM VALUES ('zftwtx55camf01', 'South_Central'),#(lf)                   ('zftwtx55camf02', 'South_Central'),#(lf)                   ('zftwtx55camf03', 'South_Central'),#(lf)                   ('zhs1tx55camf01', 'South_Central'),#(lf)                   ('zhs1tx55camf02', 'South_Central'),#(lf)                   ('zhs1tx55camf03', 'South_Central'),#(lf)                   ('zsantx25camf01', 'South_Central'),#(lf)                   ('zsantx25camf02', 'South_Central'),#(lf)                   ('zsantx25camf03', 'South_Central'),#(lf)                   ('zdlstx25camf01', 'South_Central'),#(lf)                   ('zdlstx25camf02', 'South_Central'),#(lf)                   ('zdlstx25camf03', 'South_Central'),#(lf)                   ('zdtrmi15camf01', 'North_Central'),#(lf)                   ('zdtrmi15camf02', 'North_Central'),#(lf)                   ('zdtrmi15camf03', 'North_Central'),#(lf)                   ('zkc9mo25camf01', 'North_Central'),#(lf)                   ('zkc9mo25camf02', 'South_Central'),#(lf)                   ('zkc9mo25camf03', 'North_Central'),#(lf)                   ('zsl9mo35camf01', 'North_Central'),#(lf)                   ('zsl9mo35camf02', 'North_Central'),#(lf)                   ('zsl9mo35camf03', 'North_Central'),#(lf)                   ('zdvmco45camf01', 'North_Central'),#(lf)                   ('zdvmco45camf02', 'North_Central'),#(lf)                   ('zdvmco45camf03', 'North_Central'),#(lf)                   ('zcgcil55camf01', 'North_Central'),#(lf)                   ('zcgcil55camf02', 'North_Central'),#(lf)                   ('zcgcil55camf03', 'North_Central'),#(lf)                   ('zsc1ca25camf01', 'North_West'),#(lf)                   ('zsc1ca25camf02', 'North_West'),#(lf)                   ('zsc1ca25camf03', 'North_West'),#(lf)                   ('zbokwa55camf01', 'North_West'),#(lf)                   ('zbokwa55camf02', 'North_West'),#(lf)                   ('zbokwa55camf03', 'North_West'),#(lf)                   ('zgr2ca35camf01', 'South_West'),#(lf)                   ('zgr2ca35camf02', 'South_West'),#(lf)                   ('zgr2ca35camf03', 'South_West'),#(lf)                   ('zsffca35camf01', 'South_West'),#(lf)                   ('zsffca35camf02', 'South_West'),#(lf)                   ('zsffca35camf03', 'South_West'),#(lf)                   ('zphmaz25camf01', 'South_West'),#(lf)                   ('zphmaz25camf02', 'South_West'),#(lf)                   ('zphmaz25camf03', 'South_West'),#(lf)                   ('zatnga25camf01', 'South_East'),#(lf)                   ('zatnga25camf02', 'South_East'),#(lf)                   ('zatnga25camf03', 'South_East'),#(lf)                   ('zcb1ma15camf01', 'North_East'),#(lf)                   ('zcb1ma15camf02', 'North_East'),#(lf)                   ('zcb1ma15camf03', 'North_East'),#(lf)                   ('znw2nj15camf01', 'North_East'),#(lf)                   ('znw2nj15camf02', 'North_East'),#(lf)                   ('znw2nj15camf03', 'North_East'),#(lf)                   ('zmmifl25camf01', 'South_East'),#(lf)                   ('zmmifl25camf02', 'South_East'),#(lf)                   ('zmmifl25camf03', 'South_East'),#(lf)                   ('zkgmnc26camf01', 'South_East'),#(lf)                   ('zkgmnc26camf02', 'South_East'),#(lf)                   ('zkgmnc26camf03', 'South_East'),#(lf)                   ('zwswdc15camf01', 'North_East'),#(lf)                   ('zwswdc15camf02', 'North_East'),#(lf)                   ('zwswdc15camf03', 'North_East'),#(lf)                   ('zchg4acamf01', 'North_Central'),#(lf)                   ('zgdr2ccamf01', 'North_Central'),#(lf)                   ('zipl2bcamf01', 'North_Central'),#(lf)                   ('zoma1bcamf01', 'North_Central'),#(lf)                   ('zhst7ccamf01', 'South_Central'),#(lf)                   ('zokc2ccamf01', 'South_Central'),#(lf)                   ('zshp1acamf01', 'South_Central'),#(lf)                   ('zsna2hcamf01', 'South_Central'),#(lf)                   ('zbot5acamf01', 'North_West'),#(lf)                   ('zbot5bcamf01', 'North_West'),#(lf)                   ('zfro2dcamf01', 'North_West'),#(lf)                   ('zsnt3gcamf01', 'North_West'),#(lf)                   ('zgrd2bcamf01', 'South_West'),#(lf)                   ('zlsa5acamf01', 'South_West'),#(lf)                   ('zsnb1ecamf01', 'South_West'),#(lf)                   ('zvnn2dcamf01', 'South_West'),#(lf)                   ('zavo1fcamf01', 'North_East'),#(lf)                   ('zbhm6bcamf01', 'South_East'),#(lf)                   ('zbrp1fcamf01', 'North_East'),#(lf)                   ('zgsv1bcamf01', 'South_East'),#(lf)                   ('zjcv2ecamf01', 'South_East'),#(lf)                   ('znwc1bcamf01', 'North_East'),#(lf)                   ('zorl1bcamf01', 'South_East'),#(lf)                   ('zwah2fcamf01', 'North_East'),#(lf)                   ('zalb1bcamf01', 'V2V'),#(lf)                   ('zatl6acamf01', 'V2V'),#(lf)                   ('zdll7ecamf01', 'V2V'),#(lf)                   ('zwas4ccamf01', 'V2V')),#(lf)   nc_amf#(lf)   AS#(lf)      (SELECT TIME_SLICE (datetimeutc,#(lf)                          5,#(lf)                          'minute',#(lf)                          'start') AS datetime,#(lf)              kubernetes_namespace AS amf,#(lf)              SUM (pcmm_VS_MM_NbrRegisteredSub_5GS::INT) AS sau#(lf)       FROM NSAS_MOBILITY_PROD.PRD_CNF_VIEWS.AMF_REMOTE_WRITES#(lf)       WHERE     pcmm_VS_MM_NbrRegisteredSub_5GS::INT >= 0#(lf)             AND TO_TIMESTAMP (raw_record:timestamp::INT, 9) >=#(lf)                 DATEADD (HOUR,-8, DATEADD (DAY, -3, DATE_TRUNC ('day', CURRENT_DATE)))#(lf)             AND datetimeutc <#(lf)                 DATEADD (HOUR, 8, DATE_TRUNC ('day', CURRENT_DATE))#(lf)       --AND DATE_PART('hour', datetimeutc) BETWEEN 0 AND 23#(lf)       GROUP BY datetime, amf),#(lf)   ds_camf#(lf)   AS#(lf)      (SELECT TIME_SLICE (TO_TIMESTAMP (raw_record:timestamp::INT, 9),#(lf)                          5,#(lf)                          'minute',#(lf)                          'start') AS datetime,#(lf)              COALESCE(raw_record:tags:applicationid::STRING, '') || COALESCE(raw_record:tags:namespace::STRING, '') AS amf,#(lf)              SUM (#(lf)                   COALESCE (#(lf)                      raw_record:fields:pcmm_vs_ns_nbrregisteredsub_5gs::INT,#(lf)                      '0')#(lf)                 + COALESCE (#(lf)                      raw_record:fields:agg_pcmm_vs_ns_nbrregisteredsub_5gs::INT,#(lf)                      '0')) AS SAU#(lf)       FROM NSAS_MOBILITY_PROD.PRD_MOB_PM_5GCORE_DS_AMF_VIEWS.CAMF_REMOTE_WRITES_RAW#(lf)       WHERE     (   raw_record:fields:pcmm_vs_ns_nbrregisteredsub_5gs::INT >= 0#(lf)                  OR raw_record:fields:agg_pcmm_vs_ns_nbrregisteredsub_5gs::INT >= 0#(lf)                  )#(lf)             AND TO_TIMESTAMP (raw_record:timestamp::INT, 9) >=#(lf)                 DATEADD (HOUR,-8, DATEADD (DAY, -3, DATE_TRUNC ('day', CURRENT_DATE)))#(lf)             AND TO_TIMESTAMP (raw_record:timestamp::INT, 9) <#(lf)                 DATEADD (HOUR, 8, DATE_TRUNC ('day', CURRENT_DATE))#(lf)             --AND DATE_PART('hour', TO_TIMESTAMP(raw_record:timestamp::INT, 9)) BETWEEN 0 AND 23#(lf)       GROUP BY datetime, amf),#(lf)   base#(lf)   AS#(lf)      (SELECT datetime, 'NC' AS technology, amf, sau FROM nc_amf#(lf)       UNION ALL#(lf)       SELECT datetime, 'AON' AS technology, amf, sau FROM ds_camf)#(lf)SELECT TO_CHAR (datetime, 'mm/dd/yyyy hh24')||':00' AS date_time,#(lf)       TO_CHAR (CONVERT_TIMEZONE ('UTC', m.region_tz, b.datetime), 'mm/dd/yyyy hh24')||':00' AS local_date_time,#(lf)       TO_DATE (CONVERT_TIMEZONE ('UTC', m.region_tz, b.datetime)) AS DATE,#(lf)       TO_CHAR (CONVERT_TIMEZONE ('UTC', m.region_tz, b.datetime), 'DY') AS DAY,#(lf)       region AS Region,#(lf)       pool AS AMF_Set,#(lf)       b.amf,#(lf)       technology,#(lf)       ROUND (AVG (sau), 0) AS sau#(lf)FROM base b JOIN pool_map M ON b.amf = m.amf#(lf)WHERE DAYOFWEEK (CONVERT_TIMEZONE ('UTC', m.region_tz, b.datetime)) NOT IN ('0', '6')#(lf)            AND DATE_TRUNC (DAY, CONVERT_TIMEZONE ('UTC', m.region_tz, b.datetime)) <>#(lf)                DATE_TRUNC (DAY, current_date)#(lf)           AND pool <> 'V2V'#(lf)GROUP BY TO_CHAR (datetime, 'mm/dd/yyyy hh24')||':00',#(lf)         TO_CHAR (CONVERT_TIMEZONE ('UTC', m.region_tz, b.datetime),'mm/dd/yyyy hh24')||':00',#(lf)         TO_DATE (CONVERT_TIMEZONE ('UTC', m.region_tz, b.datetime)),#(lf)         TO_CHAR (CONVERT_TIMEZONE ('UTC', m.region_tz, b.datetime), 'DY'),#(lf)         b.technology,#(lf)         m.pool,#(lf)         b.amf,#(lf)         m.region#(lf)  ORDER BY 2, 5, 6, 8, 7", null, [EnableFolding=true])
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
